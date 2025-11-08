@@ -9,6 +9,7 @@ import Compare from './pages/Compare';
 import { useSelector } from 'react-redux';
 import type { RootState } from './store/store';
 import './index.css'; // Імпорт CSS з Tailwind
+import BottomNav from './components/layouts/BottomNav';
 function App() {
   const theme = useSelector((state: RootState) => state.theme.theme); // Але краще useEffect для document.classList.add('dark')
 
@@ -18,6 +19,7 @@ function App() {
         <div className={theme === 'dark' ? 'dark' : ''}>
           <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <Header />
+            <BottomNav />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />

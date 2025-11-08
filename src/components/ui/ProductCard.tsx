@@ -19,58 +19,69 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 group"
     >
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-gray-50 dark:bg-gray-900">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {product.isHot && (
-          <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-            🔥 ХІТ
+          <span className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+            🔥 ХІТ ПРОДАЖІВ
           </span>
         )}
         <button
           onClick={() => dispatch(addToCompare(product))}
-          className={`absolute top-4 right-4 p-2 rounded-full transition-all ${
+          className={`absolute top-4 right-4 p-3 rounded-xl shadow-lg transition-all ${
             isInCompare
-              ? 'bg-blue-600 text-white'
-              : 'bg-white/90 text-gray-700 hover:bg-white'
+              ? 'bg-amber-500 text-white'
+              : 'bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-700 dark:text-gray-300 hover:bg-amber-500 hover:text-white'
           }`}
         >
           <BarChart3 className="w-5 h-5" />
         </button>
       </div>
      
-      <div className="p-6">
-        <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-          {product.category}
-        </span>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-2 mb-2">
-          {product.name}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+      <div className="p-6 space-y-4">
+        <div>
+          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">
+            {product.category}
+          </span>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-1 line-clamp-2">
+            {product.name}
+          </h3>
+        </div>
+
+        <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
           {product.description}
         </p>
        
-        <div className="flex items-center mb-4">
-          <span className="text-yellow-500 mr-2">★</span>
-          <span className="text-gray-700 dark:text-gray-300 font-medium">
-            {product.rating}
+        <div className="flex items-center gap-2">
+          <span className="text-amber-500 text-lg">★</span>
+          <span className="text-gray-700 dark:text-gray-300 font-semibold">
+            {product.rating} / 5.0
           </span>
+          <span className="text-gray-500 dark:text-gray-500 text-sm ml-2">(відгуки)</span>
         </div>
        
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-gray-900 dark:text-white">
-            ₴{product.price}
-          </span>
-          <Button onClick={() => dispatch(addToCartAction(product))} variant="primary" size="sm">
-            <ShoppingCart className="w-4 h-4" />
+        <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div>
+            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+              ₴{product.price.toLocaleString('uk-UA')}
+            </span>
+          </div>
+          <Button 
+            onClick={() => dispatch(addToCartAction(product))} 
+            variant="primary" 
+            size="md"
+            className="shadow-xl"
+          >
+            <ShoppingCart className="w-5 h-5" />
             Купити
           </Button>
         </div>

@@ -1,22 +1,29 @@
+// src/features/theme/themeSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 
-import type { Theme } from '../../types';
+interface ThemeState {
+  theme: 'light' | 'dark';
+}
 
+const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
 
-const initialState: {theme: Theme} = {theme: 'light'}
-
+const initialState: ThemeState = {
+  theme: savedTheme,
+};
 
 const themeSlice = createSlice({
-    name: 'theme',
-    initialState,
-    reducers: {
-        toggleTheme:(state) => {
-            state.theme = state.theme === 'light' ? 'dark' : 'light'
-        }
-    }
-})
+  name: 'theme',
+  initialState,
+  reducers: {
+    toggleTheme: (state) => {
+      const newTheme = state.theme === 'light' ? 'dark' : 'light';
+      state.theme = newTheme;
+      localStorage.setItem('theme', newTheme);
+      // КРИТИЧНО: додаємо/видаляємо клас dark
+      document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    },
+  },
+});
 
-
-export const {toggleTheme} = themeSlice.actions;
+export const { toggleTheme } = themeSlice.actions;
 export default themeSlice.reducer;
