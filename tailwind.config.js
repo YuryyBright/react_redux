@@ -1,10 +1,18 @@
-// tailwind.config.js
+// tailwind.config.js (Створіть цей файл)
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: "class", // ← ОБОВ'ЯЗКОВО 'class'
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  // 👇 КРИТИЧНО: Повідомляємо Tailwind, що ми керуємо темою через клас 'dark'
+  darkMode: "class",
+
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}", // Вказуємо, де шукати класи Tailwind
+  ],
   theme: {
-    extend: {},
+    extend: {
+      // Тут ваші кастомні розширення теми, якщо потрібні
+    },
   },
   plugins: [],
 };

@@ -1,35 +1,33 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+// src/App.tsx
+import { Routes, Route } from 'react-router-dom';
+// ❌ Видаліть Provider, useSelector, store
 import Header from './components/layouts/Header';
 import Footer from './components/layouts/Footer';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Compare from './pages/Compare';
-import { useSelector } from 'react-redux';
-import type { RootState } from './store/store';
-import './index.css'; // Імпорт CSS з Tailwind
+import './index.css';
 import BottomNav from './components/layouts/BottomNav';
+
 function App() {
-  const theme = useSelector((state: RootState) => state.theme.theme); // Але краще useEffect для document.classList.add('dark')
+  // ❌ Видаліть const theme = useSelector...
 
   return (
-    <Provider store={store}>
-      <Router>
-        <div className={theme === 'dark' ? 'dark' : ''}>
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <Header />
-            <BottomNav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/compare" element={<Compare />} />
-            </Routes>
-            <Footer />
-          </div>
-        </div>
-      </Router>
-    </Provider>
+    // ❌ Видаліть <Provider> та <Router>
+    // ❌ Видаліть <div className={theme === 'dark' ? 'dark' : ''}>
+    
+    // 👇 Цей div — це ваш головний контейнер.
+    // Я також видалив з нього фонові класи, щоб вони бралися з <body>
+    <div className="min-h-screen">
+      <Header />
+      <BottomNav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/compare" element={<Compare />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 
